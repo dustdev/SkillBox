@@ -1,0 +1,42 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book shelf register</title>
+    <meta charset="UTF-8">
+    <style>
+        #register_form {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .register_item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="register_form">
+    <form method="post" th:action="@{/login/register}" th:object="${accountForm}">
+        <img class="register_item" th:src="@{/images/book_icon.png}">
+        <br>
+
+        <input class="register_item" type="text" placeholder="enter username" th:field="*{username}">
+        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
+
+        <br>
+        <input class="register_item" type="text" placeholder="enter fullname" th:field="*{fullname}">
+        <div th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}">Name Error</div>
+
+        <br>
+        <input class="register_item" type="password" placeholder="password" th:field="*{password}">
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
+
+        <br>
+        <input class="register_item" type="submit" value="register">
+        <div th:if="${#fields.hasErrors('global')}" th:errors="*{global}">Name Error</div>
+    </form>
+
+</div>
+</body>
+</html>
