@@ -1,5 +1,6 @@
 package sbox.learn.unit1.mvc.app.services;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import sbox.learn.unit1.mvc.app.entities.Account;
@@ -8,9 +9,9 @@ import sbox.learn.unit1.mvc.common.dto.LoginForm;
 import org.springframework.stereotype.Service;
 
 @Service
+@Log4j
 public class LoginService {
 
-    private Logger logger = Logger.getLogger(LoginService.class);
     private final GenericRepository<Account,String> accountRepo;
 
     @Autowired
@@ -19,7 +20,7 @@ public class LoginService {
     }
 
     public boolean authenticate(LoginForm loginFrom) {
-        logger.info("try auth with user-form: " + loginFrom);
+        log.info("try auth with user-form: " + loginFrom);
         if (accountRepo.retreiveAll().size()>0) {
             return accountRepo.retreiveAll().stream()
                     .anyMatch(a -> a.getUsername().equals(loginFrom.getUsername()) && a.getPassword().equals(loginFrom.getPassword()));
@@ -29,7 +30,7 @@ public class LoginService {
     }
 
     public boolean register(Account account) {
-        logger.info("try auth with account-form: " + account);
+        log.info("try auth with account-form: " + account);
         if (accountRepo.retreiveAll().stream()
                 .anyMatch(a -> a.getUsername().equals(account.getUsername()))) {
             return false;

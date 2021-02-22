@@ -1,5 +1,6 @@
 package sbox.learn.unit1.mvc.app.services;
 
+import lombok.extern.log4j.Log4j;
 import sbox.learn.unit1.mvc.app.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @Service
+@Log4j
 public class BookService {
 
     private final GenericRepository<Book,Integer> bookRepo;

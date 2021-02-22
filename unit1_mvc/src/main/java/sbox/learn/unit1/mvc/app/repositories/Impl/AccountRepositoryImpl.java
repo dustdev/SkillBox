@@ -1,5 +1,6 @@
 package sbox.learn.unit1.mvc.app.repositories.Impl;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import sbox.learn.unit1.mvc.app.entities.Account;
@@ -12,9 +13,9 @@ import java.util.stream.Collectors;
 
 
 @Repository
+@Log4j
 public class AccountRepositoryImpl implements AccountRepository {
 
-    private final Logger logger = Logger.getLogger(AccountRepository.class);
     private final List<Account> repo = new ArrayList<>();
 
     @Override
@@ -24,19 +25,19 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public void store(Account account) {
-        logger.info("store new account: " + account);
+        log.info("store new account: " + account);
         repo.add(account);
     }
 
     @Override
     public boolean remove(Predicate<Account> predicate) {
-        logger.info("removing accounts... ");
+        log.info("removing accounts... ");
         return repo.removeIf(predicate);
     }
 
     @Override
     public List<Account> find(Predicate<Account> predicate) {
-        logger.info("search accounts... ");
+        log.info("search accounts... ");
         return repo.stream().filter(predicate).collect(Collectors.toList());
     }
 }
