@@ -1,4 +1,4 @@
-package sbox.learn.unit1.mvc.domain.entities;
+package sbox.learn.unit1.mvc.app.entities;
 
 import lombok.Data;
 
@@ -6,6 +6,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Книги
+ */
 @Data
 public class Book {
     private Integer id;

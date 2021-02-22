@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import sbox.learn.unit1.mvc.domain.entities.Account;
-import sbox.learn.unit1.mvc.domain.services.LoginService;
+import sbox.learn.unit1.mvc.app.entities.Account;
+import sbox.learn.unit1.mvc.app.services.LoginService;
 import sbox.learn.unit1.mvc.common.dto.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+/**
+ * Контроллер работы с пользователями (вход/регистация)
+ */
 @Controller
 @RequestMapping(value = "/login")
 public class LoginController {

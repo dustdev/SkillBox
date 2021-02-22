@@ -1,9 +1,9 @@
-package sbox.learn.unit1.mvc.domain.services;
+package sbox.learn.unit1.mvc.app.services;
 
-import sbox.learn.unit1.mvc.domain.entities.Book;
+import sbox.learn.unit1.mvc.app.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sbox.learn.unit1.mvc.infra.ProjectRepository;
+import sbox.learn.unit1.mvc.app.repositories.GenericRepository;
 import sbox.learn.unit1.mvc.common.dto.BookSearchViewModel;
 
 import java.util.ArrayList;
@@ -13,10 +13,10 @@ import java.util.function.Predicate;
 @Service
 public class BookService {
 
-    private final ProjectRepository<Book,Integer> bookRepo;
+    private final GenericRepository<Book,Integer> bookRepo;
 
     @Autowired
-    public BookService(ProjectRepository<Book,Integer> bookRepo) {
+    public BookService(GenericRepository<Book,Integer> bookRepo) {
         this.bookRepo = bookRepo;
     }
 

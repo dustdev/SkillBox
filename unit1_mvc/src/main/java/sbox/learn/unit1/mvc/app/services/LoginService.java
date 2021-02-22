@@ -1,9 +1,9 @@
-package sbox.learn.unit1.mvc.domain.services;
+package sbox.learn.unit1.mvc.app.services;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import sbox.learn.unit1.mvc.domain.entities.Account;
-import sbox.learn.unit1.mvc.infra.ProjectRepository;
+import sbox.learn.unit1.mvc.app.entities.Account;
+import sbox.learn.unit1.mvc.app.repositories.GenericRepository;
 import sbox.learn.unit1.mvc.common.dto.LoginForm;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     private Logger logger = Logger.getLogger(LoginService.class);
-    private final ProjectRepository<Account,String> accountRepo;
+    private final GenericRepository<Account,String> accountRepo;
 
     @Autowired
-    public LoginService(ProjectRepository<Account,String> accountRepo) {
+    public LoginService(GenericRepository<Account,String> accountRepo) {
         this.accountRepo = accountRepo;
     }
 

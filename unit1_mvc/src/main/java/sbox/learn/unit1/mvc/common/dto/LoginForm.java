@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Параметры формы входа
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

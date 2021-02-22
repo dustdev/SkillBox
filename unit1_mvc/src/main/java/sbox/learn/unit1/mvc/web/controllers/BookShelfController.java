@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import sbox.learn.unit1.mvc.domain.services.BookService;
-import sbox.learn.unit1.mvc.domain.entities.Book;
+import sbox.learn.unit1.mvc.app.services.BookService;
+import sbox.learn.unit1.mvc.app.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +13,9 @@ import sbox.learn.unit1.mvc.common.dto.BookSearchViewModel;
 
 import javax.validation.Valid;
 
+/**
+ * Контророллер работы с книгами
+ */
 @Controller
 @RequestMapping(value = "/books")
 public class BookShelfController {

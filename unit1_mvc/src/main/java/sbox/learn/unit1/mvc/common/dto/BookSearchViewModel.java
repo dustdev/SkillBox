@@ -3,7 +3,11 @@ package sbox.learn.unit1.mvc.common.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sbox.learn.unit1.mvc.common.dto.Validators.ValidBookSearch;
 
+/**
+ * Модель поиска и удаления книг (входные параметры)
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

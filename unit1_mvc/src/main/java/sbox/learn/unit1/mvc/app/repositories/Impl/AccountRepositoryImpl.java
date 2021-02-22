@@ -1,17 +1,18 @@
-package sbox.learn.unit1.mvc.infra;
+package sbox.learn.unit1.mvc.app.repositories.Impl;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-import sbox.learn.unit1.mvc.domain.entities.Account;
+import sbox.learn.unit1.mvc.app.entities.Account;
+import sbox.learn.unit1.mvc.app.repositories.AccountRepository;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+
 @Repository
-public class AccountRepository implements ProjectRepository<Account,String> {
+public class AccountRepositoryImpl implements AccountRepository {
 
     private final Logger logger = Logger.getLogger(AccountRepository.class);
     private final List<Account> repo = new ArrayList<>();

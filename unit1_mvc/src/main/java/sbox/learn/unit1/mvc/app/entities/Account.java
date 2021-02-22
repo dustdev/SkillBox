@@ -1,10 +1,14 @@
-package sbox.learn.unit1.mvc.domain.entities;
+package sbox.learn.unit1.mvc.app.entities;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Пользователь
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

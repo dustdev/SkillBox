@@ -1,8 +1,9 @@
-package sbox.learn.unit1.mvc.infra;
+package sbox.learn.unit1.mvc.app.repositories.Impl;
 
 import org.apache.log4j.Logger;
-import sbox.learn.unit1.mvc.domain.entities.Book;
+import sbox.learn.unit1.mvc.app.entities.Book;
 import org.springframework.stereotype.Repository;
+import sbox.learn.unit1.mvc.app.repositories.BookRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Repository
-public class BookRepository implements ProjectRepository<Book,Integer> {
+public class BookRepositoryImpl implements BookRepository {
 
     private final Logger logger = Logger.getLogger(BookRepository.class);
     private final List<Book> repo = new ArrayList<>();
