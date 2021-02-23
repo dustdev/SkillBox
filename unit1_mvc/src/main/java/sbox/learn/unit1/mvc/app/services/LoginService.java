@@ -1,41 +1,45 @@
 package sbox.learn.unit1.mvc.app.services;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import sbox.learn.unit1.mvc.app.entities.Account;
-import sbox.learn.unit1.mvc.app.repositories.GenericRepository;
-import sbox.learn.unit1.mvc.common.dto.LoginForm;
+import sbox.learn.unit1.mvc.app.entities.QAccount;
+import sbox.learn.unit1.mvc.app.repositories.AccountRepository;
 import org.springframework.stereotype.Service;
-
+import static sbox.learn.unit1.mvc.app.entities.QAccount.account;
+/**
+ * Управление пользователями
+ */
 @Service
 @Log4j
 public class LoginService {
 
-    private final GenericRepository<Account,String> accountRepo;
+    private final AccountRepository accountRepo;
 
     @Autowired
-    public LoginService(GenericRepository<Account,String> accountRepo) {
+    public LoginService(AccountRepository accountRepo) {
         this.accountRepo = accountRepo;
     }
 
-    public boolean authenticate(LoginForm loginFrom) {
-        log.info("try auth with user-form: " + loginFrom);
-        if (accountRepo.retreiveAll().size()>0) {
-            return accountRepo.retreiveAll().stream()
-                    .anyMatch(a -> a.getUsername().equals(loginFrom.getUsername()) && a.getPassword().equals(loginFrom.getPassword()));
-        } else {
-            return loginFrom.getUsername().equals("root") && loginFrom.getPassword().equals("123");
+    public boolean authenticate(String username, String password) {
+        log.info("try auth with username: " + username);
+        var account = accountRepo.findById(username);
+        if (account.isPresent()) {
+            var passwordInDb = account.get().getPassword();
+            if (password != null && password.equals(passwordInDb)) {
+                return true;
+            }
         }
+        return false;
     }
 
     public boolean register(Account account) {
         log.info("try auth with account-form: " + account);
-        if (accountRepo.retreiveAll().stream()
-                .anyMatch(a -> a.getUsername().equals(account.getUsername()))) {
+        if (accountRepo.existsById(account.getUsername())) {
             return false;
         } else {
-            accountRepo.store(account);
+            accountRepo.save(account);
             return true;
         }
     }

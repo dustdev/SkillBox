@@ -1,54 +1,71 @@
 package sbox.learn.unit1.mvc.app.services;
 
+import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.Visitor;
+import com.querydsl.sql.SQLQuery;
 import lombok.extern.log4j.Log4j;
+import lombok.var;
+import org.apache.commons.collections4.IterableUtils;
 import sbox.learn.unit1.mvc.app.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sbox.learn.unit1.mvc.app.repositories.GenericRepository;
+import sbox.learn.unit1.mvc.app.entities.QBook;
+import sbox.learn.unit1.mvc.app.repositories.BookRepository;
 import sbox.learn.unit1.mvc.common.dto.BookSearchViewModel;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
+import static sbox.learn.unit1.mvc.app.entities.QBook.book;
+
+/**
+ * Управление книгами
+ */
 @Service
 @Log4j
 public class BookService {
 
-    private final GenericRepository<Book,Integer> bookRepo;
+    private final BookRepository bookRepo;
 
     @Autowired
-    public BookService(GenericRepository<Book,Integer> bookRepo) {
+    public BookService(BookRepository  bookRepo) {
         this.bookRepo = bookRepo;
     }
 
     public List<Book> getAllBooks() {
-        return bookRepo.retreiveAll();
+        return IterableUtils.toList(bookRepo.findAll());
     }
 
     public void saveBook(Book book) {
-        bookRepo.store(book);
+        bookRepo.save(book);
     }
 
     public boolean remove(BookSearchViewModel bookSearchViewModel) {
-        return bookRepo.remove(buildSearchPredicate(bookSearchViewModel));
+        bookRepo.deleteWhere(buildSearchPredicate(bookSearchViewModel));
+        return true;
     }
 
     public List<Book> search(BookSearchViewModel bookSearchViewModel) {
-        return bookRepo.find(buildSearchPredicate(bookSearchViewModel));
+        return IterableUtils.toList(
+                bookRepo.findAll(
+                        buildSearchPredicate(bookSearchViewModel)
+                        ));
     }
 
-    private Predicate<Book> buildSearchPredicate(BookSearchViewModel bookSearchViewModel)
+    private Predicate buildSearchPredicate(BookSearchViewModel bookSearchViewModel)
     {
-        List<Predicate<Book>> allPredicates = new ArrayList<Predicate<Book>>();
-        if (!bookSearchViewModel.getId().isEmpty())
-            allPredicates.add(a->a.getId().toString().matches(bookSearchViewModel.getId()));
+        List<Predicate> allPredicates = new ArrayList<Predicate>();
+
+        if (bookSearchViewModel.getId()!=null)
+            allPredicates.add(book.id.like(bookSearchViewModel.getId().toString()));
         if (!bookSearchViewModel.getSize().isEmpty())
-            allPredicates.add(a->a.getSize().toString().matches(bookSearchViewModel.getSize()));
+            allPredicates.add(book.size.like(bookSearchViewModel.getSize()));
         if (!bookSearchViewModel.getTitle().isEmpty())
-            allPredicates.add(a->a.getTitle().matches(bookSearchViewModel.getTitle()));
+            allPredicates.add(book.title.like(bookSearchViewModel.getTitle()));
         if (!bookSearchViewModel.getAuthor().isEmpty())
-            allPredicates.add(a->a.getAuthor().matches(bookSearchViewModel.getAuthor()));
-        return allPredicates.stream().reduce(x->true, Predicate::and);
+            allPredicates.add(book.author.like(bookSearchViewModel.getAuthor()));
+        return ExpressionUtils.allOf(allPredicates);
     }
 }

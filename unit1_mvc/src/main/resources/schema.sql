@@ -1,0 +1,16 @@
+DROP TABLE if EXISTS books;
+
+DROP TABLE if EXISTS accounts;
+
+CREATE TABLE books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    author VARCHAR(250) NOT NULL,
+    title VARCHAR(250) NOT NULL,
+    size INT DEFAULT 0 NOT NULL
+);
+
+CREATE TABLE accounts (
+    username VARCHAR(250) NOT NULL PRIMARY KEY,
+    password VARCHAR(250) NOT NULL,
+    fullname VARCHAR(250) NOT NULL
+);

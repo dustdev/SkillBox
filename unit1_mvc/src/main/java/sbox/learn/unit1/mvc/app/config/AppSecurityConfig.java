@@ -1,6 +1,7 @@
 package sbox.learn.unit1.mvc.app.config;
 
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,8 +17,9 @@ import sbox.learn.unit1.mvc.app.services.AuthProvider;
 @Log4j
 @Configuration
 @EnableWebSecurity
-@ComponentScan
+@ComponentScan("sbox.learn.unit1.mvc.app")
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         log.info("Configure auth provider");
@@ -27,6 +29,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         log.info("Configure http security");
+        // Обеспечение работы H2 консоли
+        http
+                .headers().frameOptions().disable();
         http
                 .csrf().disable()
                 .authorizeRequests()

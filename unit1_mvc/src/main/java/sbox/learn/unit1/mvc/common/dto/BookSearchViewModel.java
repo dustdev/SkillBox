@@ -13,7 +13,7 @@ import sbox.learn.unit1.mvc.common.dto.Validators.ValidBookSearch;
 @NoArgsConstructor
 @ValidBookSearch(message = "At least one parameter must be specified")
 public class BookSearchViewModel {
-    private String id;
+    private Integer id;
     private String author;
     private String title;
     private String size;
@@ -21,7 +21,7 @@ public class BookSearchViewModel {
     @Override
     public String toString() {
         return "BookSearchViewModel {" +
-                "id=" + id +
+                "id=" + id.toString() +
                 ", author='" + author + '\'' +
                 ", title='" + title + '\'' +
                 ", size=" + size +

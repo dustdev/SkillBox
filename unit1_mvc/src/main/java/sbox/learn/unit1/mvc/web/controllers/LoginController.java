@@ -42,7 +42,7 @@ public class LoginController {
     public String authenticate(@Valid LoginForm loginFrom, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "login_page";
-        } else if (loginService.authenticate(loginFrom)) {
+        } else if (loginService.authenticate(loginFrom.getUsername(),loginFrom.getPassword())) {
             logger.info("login OK redirect to book shelf");
             return "redirect:/books/shelf";
         } else {

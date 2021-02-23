@@ -25,7 +25,7 @@ public class BookSearchValidator implements ConstraintValidator<ValidBookSearch,
         return !(bookSearchViewModel.getAuthor().isEmpty()
                 && bookSearchViewModel.getTitle().isEmpty()
                 && bookSearchViewModel.getSize().isEmpty()
-                && bookSearchViewModel.getId().isEmpty()
+                && bookSearchViewModel.getId()==null
         );
     }
 
